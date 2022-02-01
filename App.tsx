@@ -13,6 +13,7 @@ import {
 import theme from './src/global/styles/theme';
 
 import { AppRoutes } from './src/routes/app.routes';
+import { LogBox } from 'react-native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -20,6 +21,10 @@ export default function App() {
     Poppins_500Medium,
     Poppins_700Bold
   })
+
+  LogBox.ignoreLogs([
+    "[react-native-gesture-handler] Seems like you\'re using an old API with gesture components, check out new Gestures system!",
+  ]);
 
   if (!fontsLoaded) return <AppLoading />
 

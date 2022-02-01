@@ -1,6 +1,7 @@
 import styled from 'styled-components/native'
 import { FlatList, FlatListProps } from 'react-native'
 import { Feather } from '@expo/vector-icons'
+import { BorderlessButton } from 'react-native-gesture-handler'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
 
@@ -35,6 +36,10 @@ export const UserWrapper = styled.View`
 export const UserInfo = styled.View`
     flex-direction: row;
     align-items: center;
+`
+
+export const LogoutButton = styled(BorderlessButton)`
+    
 `
 
 export const Photo = styled.Image`
