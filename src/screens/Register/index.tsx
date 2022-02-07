@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -21,6 +21,7 @@ import {
     Fields,
     TransactionsTypes
 } from './styles'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 type NavigationProps = {
     navigate: (screen: string) => void;
@@ -113,6 +114,7 @@ export function Register() {
     }
 
     return (
+
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 
             <Container>
@@ -177,6 +179,6 @@ export function Register() {
                     />
                 </Modal>
             </Container>
-        </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback >
     )
 }

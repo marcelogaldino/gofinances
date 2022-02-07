@@ -1,13 +1,13 @@
 import styled from 'styled-components/native'
 import { FlatList, FlatListProps } from 'react-native'
 import { Feather } from '@expo/vector-icons'
-import { BorderlessButton } from 'react-native-gesture-handler'
+import { BorderlessButton, GestureHandlerRootView } from 'react-native-gesture-handler'
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize'
 import { getBottomSpace, getStatusBarHeight } from 'react-native-iphone-x-helper'
 
 import { DataListProps } from './index'
 
-export const Container = styled.View`
+export const Container = styled(GestureHandlerRootView)`
     flex: 1;
     background-color: ${({ theme }) => theme.colors.background};
 `
@@ -102,3 +102,9 @@ export const TransactionList = styled(
     showsVerticalScrollIndicator: false,
     contentContainerStyle: { paddingBottom: getBottomSpace() }
 })``
+
+export const LoadContainer = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+`

@@ -1,3 +1,4 @@
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
@@ -25,7 +26,7 @@ export const Title = styled.Text`
     color: ${({ theme }) => theme.colors.shape};
 `
 
-export const Form = styled.View`
+export const Form = styled(GestureHandlerRootView)`
     flex: 1;
     justify-content: space-between;
     width: 100%;
