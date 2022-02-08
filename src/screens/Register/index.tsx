@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Alert, Keyboard, Modal, TouchableWithoutFeedback } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -21,7 +21,7 @@ import {
     Fields,
     TransactionsTypes
 } from './styles'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { useAuth } from '../../hooks/auth'
 
 type NavigationProps = {
     navigate: (screen: string) => void;
@@ -58,7 +58,7 @@ export function Register() {
     })
 
     const navigation = useNavigation<NavigationProps>()
-
+    const { user } = useAuth()
 
     function handleTransactionTypeSelect(type: 'income' | 'outcome') {
         setTransactionType(type)
@@ -87,7 +87,7 @@ export function Register() {
         }
 
         try {
-            const dataKey = '@gofinances:transactions'
+            const dataKey = `@gofinances:transactions_${user.id}`
 
             const data = await AsyncStorage.getItem(dataKey)
             const currentData = data ? JSON.parse(data) : []
@@ -144,13 +144,13 @@ export function Register() {
                         <TransactionsTypes>
                             <TransactionTypeButton
                                 type='income'
-                                title='Income'
+                                title='Entrada'
                                 onPress={() => handleTransactionTypeSelect('income')}
                                 isActive={transactionType === 'income'}
                             />
                             <TransactionTypeButton
                                 type='outcome'
-                                title='Outcome'
+                                title='Saída'
                                 onPress={() => handleTransactionTypeSelect('outcome')}
                                 isActive={transactionType === 'outcome'}
                             />

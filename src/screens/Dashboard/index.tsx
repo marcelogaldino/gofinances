@@ -62,7 +62,7 @@ export function Dashboard() {
     }
 
     async function loadTransactions() {
-        const dataKey = '@gofinances:transactions'
+        const dataKey = `@gofinances:transactions_${user.id}`
         const response = await AsyncStorage.getItem(dataKey)
 
         const transactions: DataListProps[] | [] = response ? JSON.parse(response) : []
@@ -115,21 +115,21 @@ export function Dashboard() {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransaction: `Última entrada ${lastTransactionsEntries}`
+                lastTransaction: transactions.length <= 0 ? 'Você ainda não possui entradas' : `Última entrada ${lastTransactionsEntries}`
             },
             expensive: {
                 amount: expensiveTotal.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransaction: `Última saída ${lastTransactionsExpensives}`
+                lastTransaction: transactions.length <= 0 ? 'Você ainda não possui saídas' : `Última saída ${lastTransactionsExpensives}`
             },
             total: {
                 amount: total.toLocaleString('pt-BR', {
                     style: 'currency',
                     currency: 'BRL'
                 }),
-                lastTransaction: totalInterval
+                lastTransaction: transactions.length <= 0 ? 'Cadastre suas entradas e saídas agora mesmo' : totalInterval
             }
         })
         setIsLoading(false)
@@ -139,7 +139,6 @@ export function Dashboard() {
     useFocusEffect(useCallback(() => {
         loadTransactions()
     }, []))
-
     return (
         <Container>
             {

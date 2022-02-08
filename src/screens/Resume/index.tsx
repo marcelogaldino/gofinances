@@ -25,6 +25,7 @@ import {
 } from './styles'
 import { ActivityIndicator } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
+import { useAuth } from '../../hooks/auth'
 
 interface TransactionData {
     type: 'income' | 'outcome'
@@ -49,6 +50,7 @@ export function Resume() {
     const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([])
 
     const theme = useTheme()
+    const { user } = useAuth()
 
     function handleDateChange(action: 'next' | 'prev') {
         if (action === 'next') {
@@ -60,7 +62,7 @@ export function Resume() {
 
     async function loadData() {
         setIsLoading(true)
-        const dataKey = '@gofinances:transactions'
+        const dataKey = `@gofinances:transactions_${user.id}`
         const response = await AsyncStorage.getItem(dataKey)
 
         const responseFormatted = response ? JSON.parse(response) : []
