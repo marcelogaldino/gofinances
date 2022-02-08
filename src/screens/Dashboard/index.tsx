@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useFocusEffect } from '@react-navigation/native'
 
@@ -24,6 +24,7 @@ import {
 } from './styles'
 import { ActivityIndicator } from 'react-native'
 import { useTheme } from 'styled-components'
+import { useAuth } from '../../hooks/auth'
 
 export interface DataListProps extends TransactionCardProps {
     id: string
@@ -46,6 +47,7 @@ export function Dashboard() {
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
     const theme = useTheme()
+    const { SignOut, user } = useAuth()
 
     function getLastTransactionDate(
         collection: DataListProps[],
@@ -133,23 +135,6 @@ export function Dashboard() {
         setIsLoading(false)
     }
 
-    // useEffect(() => {
-    //     // async function remove() {
-    //     //     const dataKey = '@gofinances:transactions'
-
-    //     //     const data = await AsyncStorage.removeItem(dataKey)
-    //     // }
-    //     // async function loadData() {
-    //     //     const dataKey = '@gofinances:transactions'
-
-    //     //     const datalocal = await AsyncStorage.getItem(dataKey)
-    //     //     console.log('aaaaaaaaa', JSON.parse(datalocal!))
-    //     // }
-    //     //loadData()
-    //     //remove()
-    //     loadTransactions()
-    // }, [])
-
     // atualiza a lista de transacoes ao navegar entre paginas
     useFocusEffect(useCallback(() => {
         loadTransactions()
@@ -166,14 +151,14 @@ export function Dashboard() {
                         <Header>
                             <UserWrapper>
                                 <UserInfo>
-                                    <Photo source={{ uri: 'https://avatars.githubusercontent.com/u/13842365?v=4' }} />
+                                    <Photo source={{ uri: user.photo }} />
                                     <User>
                                         <UserGreeting>Ola,</UserGreeting>
-                                        <UserName>Marcelo</UserName>
+                                        <UserName>{user.name}</UserName>
                                     </User>
                                 </UserInfo>
 
-                                <LogoutButton onPress={() => { }}>
+                                <LogoutButton onPress={SignOut}>
                                     <Icon name='power' />
                                 </LogoutButton>
                             </UserWrapper>
